@@ -1,0 +1,18 @@
+# Create a network
+docker network create my-network
+
+# Build server and client images
+docker build -f Dockerfile.server -t my-server .
+docker build -f Dockerfile.client -t my-client .
+
+# Run server and client containers on the network
+docker run -d --name server-container --network my-network my-server
+docker run --name client-container --network my-network my-client
+
+# Stop the containers
+docker stop server-container
+docker stop client-container
+
+# Remove the containers
+docker rm server-container
+docker rm client-container
